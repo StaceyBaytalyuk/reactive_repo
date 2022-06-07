@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
-import static org.springframework.http.MediaType.*;
+import static org.springframework.http.MediaType.APPLICATION_NDJSON_VALUE;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,10 +24,5 @@ public class ChannelController {
         System.out.println("------------------In controller------------------");
         allChannels.subscribe(System.out::println);
         return allChannels;
-    }
-
-    @GetMapping(value = "/channels/generate")
-    public Flux<ChannelResponse> generateChannels() {
-        return channelService.generateChannels();
     }
 }
