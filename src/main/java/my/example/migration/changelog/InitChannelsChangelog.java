@@ -9,26 +9,23 @@ import my.example.model.repository.ChannelRepository;
 import java.util.List;
 
 @ChangeUnit(id = "init-channels", order = "001", author = "mongock")
-public class DatabaseInitChannelsChangeLog {
+public class InitChannelsChangelog {
 
     @Execution
     public void execution(ChannelRepository repository) {
         ChannelDocument first = ChannelDocument.builder()
                 .uid("1")
                 .description("first")
-                .system(false)
                 .build();
 
         ChannelDocument second = ChannelDocument.builder()
                 .uid("2")
                 .description("second")
-                .system(false)
                 .build();
 
         ChannelDocument system = ChannelDocument.builder()
                 .uid("3")
                 .description("system")
-                .system(true)
                 .build();
 
         repository.saveAll(List.of(first, second, system));
@@ -36,9 +33,6 @@ public class DatabaseInitChannelsChangeLog {
 
     @RollbackExecution
     public void rollbackExecution(ChannelRepository repository) {
-        //repository.deleteAll(); // или так
-        repository.deleteByDescription("first");
-        repository.deleteByDescription("second");
-        repository.deleteByDescription("system");
+        repository.deleteAll();
     }
 }
